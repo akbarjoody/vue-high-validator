@@ -137,16 +137,3 @@ npm install
 npm run dev
 ```
 
-Build a static site for hosting (GitHub Pages, Netlify, Cloudflare Pages, or any static host):
-
-```bash
-npm run docs:build
-```
-
-Upload the `docs-dist` folder to your host.
-
-## Library build
-
-```bash
-npm run build
-```
