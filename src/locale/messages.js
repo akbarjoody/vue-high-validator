@@ -1,0 +1,26 @@
+export const messages = {
+  fa: {
+    required: "فیلد مورد نظر اجباری است",
+    required_if: "فیلد مورد نظر اجباری است",
+    jalali_date: "تاریخ شمسی اشتباه است, مثال 1402/01/02",
+    mobile: "شماره موبایل معتبر نیست",
+    email: "ایمیل معتبر نیست",
+    uri: "آدرس اشتباه است, مثال (/x1/:y2/...)",
+    integer: "مقدار باید یک عدد صحیح باشد",
+    formula: "ساختار فرمول اشتباه است",
+    national_code_ir: "کد ملی معتبر نیست",
+    nullable: "",
+  },
+  en: {
+    required: "This field is required",
+    required_if: "This field is required",
+    jalali_date: "Invalid Jalali date, example 1402/01/02",
+    mobile: "Invalid mobile number",
+    email: "Invalid email address",
+    uri: "Invalid path, example (/x1/:y2/...)",
+    integer: "The value must be an integer",
+    formula: "Invalid formula structure",
+    national_code_ir: "Invalid national ID",
+    nullable: "",
+  },
+};

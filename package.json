@@ -1,0 +1,46 @@
+{
+  "name": "vue-high-validator",
+  "version": "1.1.0",
+  "description": "A Vue 3 form validation plugin with multilingual messages and built-in rules like required, email, mobile, Jalali date, and national code.",
+  "type": "module",
+  "main": "dist/vue-high-validator.umd.js",
+  "module": "dist/vue-high-validator.es.js",
+  "types": "src/index.d.ts",
+  "files": [
+    "dist",
+    "src/index.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./dist/vue-high-validator.es.js",
+      "require": "./dist/vue-high-validator.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite --config vite.docs.config.js",
+    "build": "vite build",
+    "docs:build": "vite build --config vite.docs.config.js",
+    "docs:preview": "vite preview --config vite.docs.config.js",
+    "preview": "vite preview --config vite.docs.config.js"
+  },
+  "keywords": [
+    "vue",
+    "validation",
+    "form",
+    "persian",
+    "jalali",
+    "national code"
+  ],
+  "author": "akbar jodi <akbar.joody@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.0.0",
+    "vue": "^3.0.0",
+    "vue-router": "^4.6.4"
+  }
+}
