@@ -2,77 +2,84 @@
 
 A Vue 3 form validation plugin with multilingual messages and built-in rules like required, email, Jalali date, and national code.
 
-## Installation
-
-
 ## Features
-- **🌟 Simple:** Intuitive and straightforward declarative validation  
-- **🧘‍♀️ Versatile:** Supports synchronous, asynchronous, field-level, or form-level validation  
-- **⚡️ Speedy:** Create forms quickly with a lightweight and easy-to-use API  
-- **🎯 Lightweight:** Focuses only on complex form logic, giving you full control over the rest
+
+- **Simple:** Intuitive and straightforward declarative validation
+- **Versatile:** Supports field-level or form-level validation
+- **Speedy:** Create forms quickly with a lightweight and easy-to-use API
+- **Lightweight:** Focuses only on form logic, giving you full control over the UI
+- **Multilingual:** Error messages in Persian, English, or any language you add
+
+## Installation
 
 ```bash
 npm install vue-high-validator
 ```
 
-## Documentation
-
-سایت مستندات همراه دمو:
-
-```bash
-npm run dev
-```
-
-خروجی استاتیک برای انتشار روی اینترنت:
-
-```bash
-npm run docs:build
-```
-
-پوشه `docs-dist` را روی GitHub Pages، Netlify، Cloudflare Pages یا هر هاست استاتیک آپلود کن.
-
-## Development
-
-```bash
-npm install
-npm run dev
-```
-
-Playground روی `http://localhost:5173` اجرا می‌شود. برای ساخت خروجی کتابخانه:
-
-```bash
-npm run build
-```
+## Usage
 
 ```vue
 <script setup>
-import { useValidator, useForm, validators } from 'vue-high-validator';
+import { useForm, useValidator } from 'vue-high-validator'
 
 const form = useForm({
   name: '',
   email: '',
-});
+})
 
 const { hasValid } = useValidator(form.value, {
   name: 'required',
   email: 'required|email',
-});
+})
 
-if (hasValid()) {
-  console.log('Form is valid!');
+function submit() {
+  if (hasValid()) {
+    console.log('Form is valid!')
+  }
 }
 </script>
+
 <template>
-  <div>
+  <form @submit.prevent="submit">
     <input v-model="form.name.value" />
     <span v-if="form.name.hasInvalid">{{ form.name.errorMessage }}</span>
-  </div>
+
+    <input v-model="form.email.value" />
+    <span v-if="form.email.hasInvalid">{{ form.email.errorMessage }}</span>
+  </form>
 </template>
 ```
 
+Chain multiple rules with `|`:
+
+```js
+useValidator(form.value, {
+  email: 'required|email',
+  mobile: 'required|mobile',
+  reason: 'required_if:status:rejected',
+})
+```
+
+Each field has `value`, `hasInvalid`, and `errorMessage`.
+
+## Built-in rules
+
+| Rule | Example | Description |
+| --- | --- | --- |
+| `required` | `required` | Field must not be empty |
+| `required_if` | `required_if:status:rejected` | Required when another field equals a value |
+| `email` | `email` | Valid email format |
+| `mobile` | `mobile` | Iranian mobile number |
+| `jalali_date` | `jalali_date` | Jalali date as `1402/01/02` |
+| `national_code_ir` | `national_code_ir` | National ID with checksum |
+| `uri` | `uri` | Path like `/users/:id` |
+| `integer` | `integer` | Integer value |
+| `formula` | `formula` | Valid formula structure |
+| `nullable` | `nullable` | Always passes; use for optional fields |
+
 ## Locale
 
-پیام‌های خطا به‌صورت پیش‌فرض فارسی هستند. برای انگلیسی یا هر زبان دیگر:
+Error messages default to Persian (`fa`). Switch to English or add any other language:
 
 ```js
 import { setLocale, addLocale, useValidator } from 'vue-high-validator'
@@ -88,7 +95,7 @@ addLocale('de', {
 setLocale('de')
 ```
 
-یا فقط برای یک فرم:
+Missing keys fall back to English. You can also set the locale or override messages for a single form:
 
 ```js
 useValidator(form.value, {
@@ -101,4 +108,45 @@ useValidator(form.value, {
     email: 'Enter a valid email',
   },
 })
+```
+
+## Helpers
+
+```js
+const { hasValid, getFormData, clearFormData, attachErrors } = useValidator(
+  form.value,
+  { name: 'required', email: 'required|email' }
+)
+
+if (hasValid()) {
+  const payload = getFormData(form.value)
+  const multipart = getFormData(form.value, true)
+}
+
+form.value.assign({ name: 'Akbar', email: 'a@b.com' })
+clearFormData(form)
+attachErrors(serverErrors, form)
+```
+
+## Documentation site
+
+Run the docs and live demo locally:
+
+```bash
+npm install
+npm run dev
+```
+
+Build a static site for hosting (GitHub Pages, Netlify, Cloudflare Pages, or any static host):
+
+```bash
+npm run docs:build
+```
+
+Upload the `docs-dist` folder to your host.
+
+## Library build
+
+```bash
+npm run build
 ```
